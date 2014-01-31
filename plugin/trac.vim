@@ -172,6 +172,10 @@ if !exists('g:tracBrowser')
     "let g:tracBrowser = '"C:\Program Files\Mozilla Firefox\firefox.exe"' "GVim on Windows not tested
 endif
 
+if !exists('g:tracWIKISyntax')
+    let g:tracWIKISyntax = 'wiki'
+endif
+
 if !exists('g:tracServerList')
 
 let g:tracServerList = {}
