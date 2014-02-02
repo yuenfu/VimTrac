@@ -132,14 +132,15 @@ if !has("python")
     finish
 endif
 
-if filereadable($VIMRUNTIME."/plugin/trac.py")
-  pyfile $VIMRUNTIME/plugin/trac.py
-elseif filereadable($HOME."/.vim/plugin/trac.py")
-  pyfile $HOME/.vim/plugin/trac.py
-else
-  call confirm('trac.vim: Unable to find trac.py. Place it in either your home vim directory or in the Vim runtime directory.', 'OK')
-  finish
-endif
+"if filereadable($VIMRUNTIME."/plugin/trac.py")
+"  pyfile $VIMRUNTIME/plugin/trac.py
+"elseif filereadable($HOME."/.vim/plugin/trac.py")
+"  pyfile $HOME/.vim/plugin/trac.py
+"else
+"  call confirm('trac.vim: Unable to find trac.py. Place it in either your home vim directory or in the Vim runtime directory.', 'OK')
+"  finish
+"endif
+pyfile <sfile>:p:h/trac.py
 
 python import sys
 python if sys.version_info[:3] < (2,4,4):vim.command('let g:tracPythonVersionFlag = 1')
