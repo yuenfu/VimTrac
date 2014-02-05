@@ -259,7 +259,7 @@ com! -nargs=+ TQEnhanceOnVimTrac python trac.ticket.create(<q-args> , 'enhanceme
 
 com! -nargs=? -complete=customlist,ComWiki        TWOpen          python trac.wiki_view  (<f-args>)
 
-fun LoadWikiCommands()
+fun! LoadWikiCommands()
     "NOTE: TWSave is referenced in trac.py
     com! -nargs=*                                     TWSave          python trac.wiki.save(<q-args>)
     com! -nargs=?                                     TWCreate        python trac.wiki_view  (<f-args>, True)
@@ -271,7 +271,7 @@ fun LoadWikiCommands()
     com! -nargs=?                                     TWVimDiff       python trac.wiki.vim_diff(<f-args>)
 endfun
 
-fun UnloadWikiCommands()
+fun! UnloadWikiCommands()
     try
         delc TWSave
         delc TWCreate
@@ -287,7 +287,7 @@ endfun
 "TICKET MODULE COMMANDS
 com! -nargs=?                                     TTOpen          python trac.ticket_view  (<f-args>)
 
-fun LoadTicketCommands()
+fun! LoadTicketCommands()
     "Trac Ticket modifications
     com! -nargs=+                                     TTCreateTask        python trac.ticket.create(<q-args>, 'task')
     com! -nargs=+                                     TTCreateDefect      python trac.ticket.create(<q-args>, 'defect')
@@ -358,7 +358,7 @@ fun LoadTicketCommands()
     com! -nargs=*                                     TTResolveWorksForMe python trac.ticket.resolve_ticket(<q-args>,'worksforme')
 endfun
 
-fun UnloadTicketCommands()
+fun! UnloadTicketCommands()
     "Trac Ticket modifications
     try
         delc TTCreateTask
@@ -430,62 +430,62 @@ com! -nargs=0                                     TTimelineOpen   python trac.ti
 com! -nargs=0                                     TClose          python trac.normal_view(<f-args>)
 
 "FUNCTION COMPLETES
-fun ComTracServers (A,L,P)
+fun! ComTracServers (A,L,P)
     return filter (keys(g:tracServerList), 'v:val =~ "^'.a:A.'"')
 endfun
 
 let g:tracOptions = 1
 
-fun ComAttachments (A,L,P)
+fun! ComAttachments (A,L,P)
     python trac.list_attachments()
 
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComWiki  (A,L,P)
+fun! ComWiki  (A,L,P)
     python trac.wiki.get_options()
 
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
 "COMMAND COMPLETES
-fun ComMilestone  (A,L,P)
+fun! ComMilestone  (A,L,P)
     python trac.ticket.get_options(0)
 
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComType  (A,L,P)
+fun! ComType  (A,L,P)
     python trac.ticket.get_options(1)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComStatus  (A,L,P)
+fun! ComStatus  (A,L,P)
     python trac.ticket.get_options(2)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComResolution  (A,L,P)
+fun! ComResolution  (A,L,P)
     python trac.ticket.get_options(3)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComPriority  (A,L,P)
+fun! ComPriority  (A,L,P)
     python trac.ticket.get_options(4)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComSeverity  (A,L,P)
+fun! ComSeverity  (A,L,P)
     python trac.ticket.get_options(5)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComComponent  (A,L,P)
+fun! ComComponent  (A,L,P)
     python trac.ticket.get_options(6)
     return filter (split (g:tracOptions, '|' ), 'v:val =~ "^' . a:A . '"')
 endfun
 
-fun ComSort (A,L,P)
+fun! ComSort (A,L,P)
     return filter (['priority','milestone'], 'v:val =~ "^' . a:A . '"')
 endfun
 
@@ -494,7 +494,7 @@ endfun
 "closed by the :only command
 "TODO add other common plugins that may be affected 
 "see OpenCloseCallbacks in the wiki
-fun TracOpenViewCallback()
+fun! TracOpenViewCallback()
     try
         CMiniBufExplorer
     catch
@@ -504,7 +504,7 @@ fun TracOpenViewCallback()
     return 1
 endfun
 
-fun TracCloseViewCallback()
+fun! TracCloseViewCallback()
     try
         MiniBufExplorer
     catch
