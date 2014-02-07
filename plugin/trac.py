@@ -53,7 +53,7 @@ class VimWindow:
           msg = msg.encode('utf-8', 'ignore')
           #msg = msg.encode('ascii', 'ignore')
 
-          self.buffer[:] = str(msg).split('\n')
+          self.buffer[:] = str(msg).splitlines()
         else:
           self.buffer.append(str(msg).split('\n'))
         self.command('normal gg')
